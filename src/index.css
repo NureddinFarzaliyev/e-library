@@ -1,6 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-  }
+}
 
+/* elements-container folders-container files-container folder-element file-element */
+
+/* .elements-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.folders-container{
+    display: flex;
+}
+
+.file-element{
+    background-color: green;
+} */

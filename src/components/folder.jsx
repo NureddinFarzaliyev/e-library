@@ -23,7 +23,7 @@ const Folder = () => {
         setLibrary(data.files)
         console.log(library)
       } catch (error) {
-        console.error('Error fetching public folder:', error);
+        console.error('Error fetching folder:', error);
       }
     }
   
@@ -33,17 +33,53 @@ const Folder = () => {
 
     return (
         <div>
+          {/* <div className='elements-container'>
             {library ? library.map((element) => (
-                <div key={element.id}>
+                <div key={element.id} className='element'>
                     {element.mimeType === "application/vnd.google-apps.folder" ? (
-                        <Link onClick={setTimeout(() => {
-                            () => window.location.reload()
-                        }, 200)} to={`/folder/${element.id}`}>{element.name}</Link>
+                        <Link className='folder-element' key={element.id} onClick={setTimeout(() => {
+                            () => window.location.reload()}, 200)} to={`/folder/${element.id}`}>
+                            {element.name}
+                        </Link>
                     ) : (
-                        <span>NOT FOLDER <a href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>{element.name}</a></span>
-                    )}
+                          <a className='file-element' href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>
+                            {element.name} 
+                          </a>
+                      )}
                 </div>
             )) : null}
+          </div> */}
+
+          <div className="elements-container flex items-center justify-center bg-red-900 w-screen h-screen">
+
+            <div className="folders-container flex flex-col mx-10 ml-52 w-56 h-[35rem]">
+              {
+                library ? library.map((element) => (
+                  element.mimeType === "application/vnd.google-apps.folder" ? (
+                    <Link className='folder-element' key={element.id} onClick={setTimeout(() => {
+                      () => window.location.reload()}, 200)} to={`/folder/${element.id}`}>
+                      {element.name}
+                    </Link>
+                  ) : null
+                )) : null
+              }
+            </div>
+
+            <div className='h-[38rem] bg-gray-700 w-1'></div>
+
+            <div className="files-container flex flex-col mx-20 w-[60rem] h-[35rem]">
+              {
+                library ? library.map((element) => (
+                  element.mimeType != "application/vnd.google-apps.folder" ? (
+                    <a className='file-element' href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>
+                      {element.name} 
+                    </a>
+                  ) : null
+                )) : null
+              }
+            </div>
+
+          </div>
         </div>
     )
 }
