@@ -1,5 +1,0 @@
-'text': '#fafafa',
-'background': '#050505',
-'primary': '#a6b795',
-'secondary': '#0b0e0d',
-'accent': '#657086',

@@ -17,7 +17,7 @@ const Folder = () => {
       try {
         const response = await fetch(url.toString());
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Response was not ok');
         }
         const data = await response.json();
         setLibrary(data.files)
@@ -33,50 +33,56 @@ const Folder = () => {
 
     return (
         <div>
-          {/* <div className='elements-container'>
-            {library ? library.map((element) => (
-                <div key={element.id} className='element'>
-                    {element.mimeType === "application/vnd.google-apps.folder" ? (
-                        <Link className='folder-element' key={element.id} onClick={setTimeout(() => {
-                            () => window.location.reload()}, 200)} to={`/folder/${element.id}`}>
-                            {element.name}
-                        </Link>
-                    ) : (
-                          <a className='file-element' href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>
-                            {element.name} 
-                          </a>
-                      )}
-                </div>
-            )) : null}
-          </div> */}
 
-          <div className="elements-container flex items-center justify-center bg-red-900 w-screen h-screen">
+          <div className="elements-container flex items-center justify-center bg-bg-color overflow-hidden text-text-color w-screen h-screen">
 
-            <div className="folders-container flex flex-col mx-10 ml-52 w-56 h-[35rem]">
-              {
-                library ? library.map((element) => (
-                  element.mimeType === "application/vnd.google-apps.folder" ? (
-                    <Link className='folder-element' key={element.id} onClick={setTimeout(() => {
-                      () => window.location.reload()}, 200)} to={`/folder/${element.id}`}>
-                      {element.name}
-                    </Link>
-                  ) : null
-                )) : null
-              }
+            <div className="folders-container flex flex-col mx-10 ml-52 w-96 h-[35rem] overflow-y-scroll overflow-x-hidden">
+
+              <Link to={'/'} className='flex bg-whiteish text-black p-2 rounded font-bold mb-5 fixed'>
+                <img src="/public/home-icon-silhouette-svgrepo-com.svg" className='h-6 mr-3' alt="" />
+                <div>Home</div>
+              </Link>
+
+              <div className='mt-12'>
+                {
+                  library ? library.map((element) => (
+                    element.mimeType === "application/vnd.google-apps.folder" ? (
+                      <Link className='folder-element flex h-10 w-64 items-center hover:bg-gray-900 rounded py-4 px-2' key={element.id} onClick={setTimeout(() => {
+                        () => window.location.reload()}, 200)} to={`/folder/${element.id}`}>
+                        <img src="/public/folder-icon.svg" alt="" />
+                        <div className='ml-2'>{element.name}</div>
+                      </Link>
+                    ) : null
+                  )) : null
+                }
+              </div>
             </div>
 
             <div className='h-[38rem] bg-gray-700 w-1'></div>
 
-            <div className="files-container flex flex-col mx-20 w-[60rem] h-[35rem]">
-              {
-                library ? library.map((element) => (
-                  element.mimeType != "application/vnd.google-apps.folder" ? (
-                    <a className='file-element' href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>
-                      {element.name} 
-                    </a>
-                  ) : null
-                )) : null
-              }
+            <div className="files-container flex flex-col mx-20 w-[60rem] h-[35rem] mt-20 overflow-y-scroll">
+
+              <div className="searchbar">
+                <input type="text" name="search" id="search" placeholder='Search for files...' className='bg-secondary-color w-96 fixed mb-4 p-2 rounded h-10 mt-[-3rem]' />
+              </div>
+
+
+              <div>
+                {
+                  library ? library.map((element) => (
+                    element.mimeType != "application/vnd.google-apps.folder" ? (
+                      <div className='bg-secondary-color hover:bg-gray-900 transition rounded my-1 p-2 '>
+                        <a className='file-element flex' href={`https://drive.google.com/file/d/${element.id}/view`} target='_blank'>
+                          <img src="/public/file-icon.svg" className='mr-3 ml-2' alt="" /> 
+                          <div>{element.name}</div>
+                        </a>
+                      </div>
+                    ) : null
+                  )) : null
+                }
+              </div>
+
+
             </div>
 
           </div>

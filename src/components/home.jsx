@@ -33,13 +33,19 @@ const Home = () => {
     
   
     return (
-      <div>
+      <div className='bg-bg-color h-screen text-text-color'>
+        <div className='pt-14 px-40'>
+          <div className='text-white opacity-20'>Nureddin Farzaliyev's</div>
+          <h1 className='text-4xl'>E-Library</h1>
+        </div>
+        <div className='py-14 px-40'>
         { library ? library.map((element) => (
-          <Link to={`/folder/${element.id}`}>
-            <div>{element.name}</div>
+          <Link to={`/folder/${element.id}`} className='flex h-10 w-64 items-center hover:bg-gray-900 rounded p-3'>
+            <img src="/public/folder-icon.svg" alt="" />
+            <div className='px-2'>{element.name}</div>
           </Link>
         )) : null }
-        home
+        </div>
       </div>
     )
 }
